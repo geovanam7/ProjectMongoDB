@@ -15,6 +15,6 @@ public class ProjectMongoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectMongoApplication.class, args);
 	}
-	
+
 
 }
