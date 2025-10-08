@@ -1,5 +1,6 @@
 package com.mongodb.project.resources;
 
+import com.mongodb.project.domain.Post;
 import com.mongodb.project.domain.User;
 import com.mongodb.project.dto.UserDTO;
 import com.mongodb.project.service.UserService;
@@ -57,4 +58,11 @@ public class UserResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.noContent().build();
 }
+
+    @RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body((obj.getPosts()));
+    }
+
 }
