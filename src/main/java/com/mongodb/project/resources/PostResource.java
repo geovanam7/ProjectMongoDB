@@ -1,0 +1,33 @@
+package com.mongodb.project.resources;
+
+import com.mongodb.project.domain.Post;
+import com.mongodb.project.domain.User;
+import com.mongodb.project.dto.UserDTO;
+import com.mongodb.project.service.PostService;
+import com.mongodb.project.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+//@RequestMapping (value = "api/posts")
+@RestController
+public class PostResource {
+
+
+    @Autowired
+    private PostService service;
+
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Post> findById(@PathVariable String id) {
+        Post obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+}
