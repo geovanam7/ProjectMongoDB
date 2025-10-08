@@ -3,6 +3,7 @@ package com.mongodb.project.config;
 import com.mongodb.project.domain.Post;
 import com.mongodb.project.domain.User;
 import com.mongodb.project.dto.AuthorDTO;
+import com.mongodb.project.dto.ComentDTO;
 import com.mongodb.project.dto.UserDTO;
 import com.mongodb.project.repository.PostRepository;
 import com.mongodb.project.repository.UserRepository;
@@ -40,8 +41,14 @@ public class Instantiation implements CommandLineRunner {
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
         Post post1 = new Post(null, sdf.parse("21/02/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!", new AuthorDTO(maria));
-        Post post2 = new Post(null, sdf.parse("23/02/2018"), "Aniversário da Ana", "Ana completa hoje 23 anos. Parabéns!", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("23/02/2018"), "Aniversário da Ana", "Ana completa hoje 23 anos. Parabéns!", new AuthorDTO(bob));
 
+        ComentDTO c1 = new ComentDTO( "Boa Viagem", sdf.parse("21/02/2018"), new AuthorDTO(alex));
+        ComentDTO c2 = new ComentDTO( "Ate logo", sdf.parse("21/02/2018"), new AuthorDTO(alex));
+        ComentDTO c3 = new ComentDTO( "Feliz aniversário", sdf.parse("21/02/2018"), new AuthorDTO(bob));
+
+        post1.getComents().addAll(Arrays.asList(c1,c2));
+        post2.getComents().addAll(Arrays.asList(c3));
         postRepository.saveAll(Arrays.asList(post1, post2));
 
         maria.getPosts().addAll(Arrays.asList(post1, post2));
